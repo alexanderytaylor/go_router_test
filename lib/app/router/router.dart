@@ -3,15 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/app/app.dart';
-import 'package:go_router_test/app/home/home_page.dart';
+import 'package:go_router_test/community/community.dart';
+import 'package:go_router_test/details/detials.dart';
+import 'package:go_router_test/home/view/home_page.dart';
+import 'package:go_router_test/library/library.dart';
+import 'package:go_router_test/login/login.dart';
+import 'package:go_router_test/search/search.dart';
+import 'package:go_router_test/settings/settings.dart';
 import 'package:logging/logging.dart';
-
-import '../../search/search.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
+
+const _route = '/';
 
 class AppRouter {
   AppRouter(this.appBloc);
@@ -24,7 +30,7 @@ class AppRouter {
     initialLocation: SearchHomePage.path,
     routes: [
       GoRoute(
-        path: '/',
+        path: _route,
         redirect: (_, __) {
           if (appBloc.state.status == AppStatus.authenticated) {
             return SearchHomePage.path;
@@ -88,15 +94,15 @@ class AppRouter {
     redirect: (context, state) {
       final authStatus = appBloc.state.status;
       final loggedIn = authStatus == AppStatus.authenticated;
-      final loggingIn = state.subloc == '/login';
+      final loggingIn = state.subloc == LoginPage.path;
       if (!loggedIn) {
-        return '/login';
+        return LoginPage.path;
       }
 
       // if the user is logged in but still on the login page, send them to
       // the home page
       if (loggingIn) {
-        return '/home';
+        return SearchHomePage.path;
       }
 
       // no need to redirect at all

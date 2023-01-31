@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router_test/app/view/app.dart';
+import 'package:go_router_test/community/community.dart';
+import 'package:go_router_test/details/detials.dart';
+import 'package:go_router_test/library/library.dart';
 
-import '../../search/search.dart';
+import 'package:go_router_test/search/search.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.child});
@@ -60,34 +60,35 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
     final location = GoRouterState.of(context).location;
     switch (index) {
       case 0:
-        return GoRouter.of(context).go('/library');
+        return LibraryPage.go(context);
       case 1:
-        if (location == '/home') {
+        if (location == SearchHomePage.path) {
           return SearchFormPage.go(context);
         }
-        return GoRouter.of(context).go('/home');
+        return SearchHomePage.go(context);
       case 2:
-        return GoRouter.of(context).go('/community');
+        return CommunityPage.go(context);
     }
   }
 
   int _calculateSelectedIndex(BuildContext context) {
     final location = GoRouterState.of(context).location;
 
-    if (location.startsWith('/details')) {
-      if (prevLocation == '/library') return 0;
+    if (location.startsWith(DetailsPage.path)) {
+      if (prevLocation == LibraryPage.path) return 0;
       prevLocation = location;
       return 1;
     }
-    if (location.startsWith('/library')) {
+    if (location.startsWith(LibraryPage.path)) {
       prevLocation = location;
       return 0;
     }
-    if (location.startsWith('/home') || location.startsWith('/search')) {
+    if (location.startsWith(SearchHomePage.path) ||
+        location.startsWith(SearchFormPage.path)) {
       prevLocation = location;
       return 1;
     }
-    if (location.startsWith('/community')) {
+    if (location.startsWith(CommunityPage.path)) {
       prevLocation = location;
 
       return 2;

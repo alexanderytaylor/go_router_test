@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:go_router_test/search/models/search_filter.dart';
 import 'package:go_router_test/search/view/search_form_page.dart';
-
-import '../models/search_filter.dart';
 
 class SearchHomePage extends StatelessWidget {
   const SearchHomePage({super.key});
+
+  /// Method for pushing to this route within the app.
+  static void go(BuildContext context) => context.goNamed(SearchHomePage.name);
 
   static const path = '/home';
   static const name = 'home';
@@ -30,8 +32,11 @@ class SearchHomePage extends StatelessWidget {
               child: const Text('Search Movie'),
             ),
             OutlinedButton(
-              onPressed: () => SearchFormPage.go(context,
-                  query: 'hello', filter: {SearchFilter.movie}),
+              onPressed: () => SearchFormPage.go(
+                context,
+                query: 'hello',
+                filter: {SearchFilter.movie},
+              ),
               child: const Text('Search Movie'),
             ),
           ],

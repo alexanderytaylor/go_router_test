@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:go_router_test/details/detials.dart';
 import 'package:go_router_test/search/bloc/search_bloc.dart';
 
 import 'package:go_router_test/search/models/models.dart';
@@ -72,7 +73,7 @@ class SearchFormView extends StatelessWidget {
               const SizedBox(height: 5),
               Text('filter: ${state.filter}'),
               OutlinedButton(
-                onPressed: () => context.go('/details'),
+                onPressed: () => DetailsPage.go(context),
                 child: const Text('Details'),
               ),
             ],
