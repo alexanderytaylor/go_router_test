@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/app/app.dart';
+import 'package:go_router_test/app/home/home_page.dart';
 import 'package:logging/logging.dart';
 
 import '../../search/search.dart';
@@ -20,7 +21,7 @@ class AppRouter {
   late final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/home',
+    initialLocation: SearchHomePage.path,
     routes: [
       GoRoute(
         path: '/',
@@ -40,7 +41,7 @@ class AppRouter {
       ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) => ScaffoldWithNavBar(child: child),
+        builder: (context, state, child) => HomePage(child: child),
         routes: [
           GoRoute(
             path: SearchHomePage.path,
