@@ -85,32 +85,102 @@ class AppRouter {
           GoRoute(
             path: DetailsPage.path,
             name: DetailsPage.name,
-            builder: (BuildContext context, GoRouterState state) =>
-                const DetailsPage(),
+            builder: (context, state) => const DetailsErrorPage(),
+            routes: [
+              // TODO: add empty movie redirect
+              GoRoute(
+                path: 'movie/:movieId',
+                builder: (context, state) => DetailsPage.movieFromGoRouter(
+                  movieId: state.params['movieId'],
+                ),
+              ),
+              // TODO: add empty tvShow redirect
+              GoRoute(
+                path: 'tv/:tvShowId',
+                builder: (context, state) => DetailsPage.tvShowFromGoRouter(
+                  tvShowId: state.params['tvShowId'],
+                ),
+              ),
+              // TODO: add empty tvSeason redirect
+              GoRoute(
+                path: 'tv/:tvShowId/season/:seasonNo',
+                builder: (context, state) => DetailsPage.tvSeasonFromGoRouter(
+                  tvShowId: state.params['tvShowId'],
+                  seasonNo: state.params['seasonNo'],
+                ),
+              ),
+              // TODO: add empty tvEpisode redirect
+              GoRoute(
+                path: 'tv/:tvShowId/season/:seasonNo/episode/:episodeNo',
+                builder: (context, state) => DetailsPage.tvEpisodeFromGoRouter(
+                  tvShowId: state.params['tvShowId'],
+                  seasonNo: state.params['seasonNo'],
+                  episodeNo: state.params['episodeNo'],
+                ),
+              ),
+              // TODO: add empty book redirect
+              GoRoute(
+                path: 'book/:bookId',
+                builder: (context, state) => DetailsPage.bookFromGoRouter(
+                  bookId: state.params['bookId'],
+                  idType: state.queryParams['idType'],
+                ),
+              ),
+              // TODO: add empty game redirect
+              GoRoute(
+                path: 'game/:gameId',
+                builder: (context, state) {
+                  return DetailsPage.gameFromGoRouter(
+                    gameId: state.params['gameId'],
+                  );
+                },
+              ),
+              // TODO: add empty podcastShow redirect
+              GoRoute(
+                path: 'podcast/:podcastId',
+                builder: (context, state) =>
+                    DetailsPage.podcastShowFromGoRouter(
+                  podcastShowId: state.params['podcastId'],
+                  idType: state.queryParams['idType'],
+                ),
+              ),
+              // TODO: add empty podcastEpisode redirect
+              GoRoute(
+                path: 'podcast/:podcastId/episode/:episodeId',
+                builder: (context, state) =>
+                    DetailsPage.podcastEpisodeFromGoRouter(
+                  podcastShowId: state.params['podcastId'],
+                  episodeId: state.params['episodeId'],
+                  idType: state.queryParams['idType'],
+                ),
+              ),
+            ],
           ),
         ],
       ),
     ],
-    redirect: (context, state) {
-      final authStatus = appBloc.state.status;
-      final loggedIn = authStatus == AppStatus.authenticated;
-      final loggingIn = state.subloc == LoginPage.path;
-      if (!loggedIn) {
-        return LoginPage.path;
-      }
-
-      // if the user is logged in but still on the login page, send them to
-      // the home page
-      if (loggingIn) {
-        return SearchHomePage.path;
-      }
-
-      // no need to redirect at all
-      return null;
-    },
+    redirect: _guard,
     refreshListenable: GoRouterRefreshStream(appBloc.stream),
     observers: [MyNavObserver()],
   );
+
+  FutureOr<String?> _guard(BuildContext context, GoRouterState state) {
+    final authStatus = appBloc.state.status;
+    final loggedIn = authStatus == AppStatus.authenticated;
+    final loggingIn = state.subloc == LoginPage.path;
+    if (!loggedIn) {
+      return LoginPage.path;
+    }
+
+    // if the user is logged in but still on the login page, send them to
+    // the home page
+    if (loggingIn) {
+      return SearchHomePage.path;
+    }
+
+    // no need to redirect at all
+    return null;
+  }
 }
 
 class GoRouterRefreshStream extends ChangeNotifier {

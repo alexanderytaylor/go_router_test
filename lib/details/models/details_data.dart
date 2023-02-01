@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 
+import 'details_request.dart';
+
 /// {@template details_request}
 /// Base Details Request.
 /// {@endtemplate}
-abstract class BaseDetailsRequest extends Equatable {
+abstract class BaseDetailsData extends Equatable {
   /// {@macro details_request}
-  const BaseDetailsRequest();
+  const BaseDetailsData();
 }
 
 /// {@template movie_details_request}
@@ -13,9 +15,9 @@ abstract class BaseDetailsRequest extends Equatable {
 ///
 /// Contains a [movieId].
 /// {@endtemplate}
-class MovieDetailsRequest extends BaseDetailsRequest {
+class MovieDetails extends BaseDetailsData {
   /// {@macro movie_details_request}
-  const MovieDetailsRequest({required this.movieId});
+  const MovieDetails({required this.movieId});
 
   /// Movie ID
   final String movieId;
@@ -29,9 +31,9 @@ class MovieDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [tvShowId].
 /// {@endtemplate}
-class TvShowDetailsRequest extends BaseDetailsRequest {
+class TvShowDetails extends BaseDetailsData {
   /// {@macro tv_show_details_request}
-  const TvShowDetailsRequest({required this.tvShowId});
+  const TvShowDetails({required this.tvShowId});
 
   /// TV Show ID
   final String tvShowId;
@@ -45,9 +47,9 @@ class TvShowDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [tvShowId] and [seasonNo].
 /// {@endtemplate}
-class TvSeasonDetailsRequest extends BaseDetailsRequest {
+class TvSeasonDetails extends BaseDetailsData {
   /// {@macro tv_season_details_request}
-  const TvSeasonDetailsRequest({
+  const TvSeasonDetails({
     required this.tvShowId,
     required this.seasonNo,
   });
@@ -67,9 +69,9 @@ class TvSeasonDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [tvShowId], [seasonNo] and [episodeNo].
 /// {@endtemplate}
-class TvEpisodeDetailsRequest extends BaseDetailsRequest {
+class TvEpisodeDetails extends BaseDetailsData {
   /// {@macro tv_episode_details_request}
-  const TvEpisodeDetailsRequest({
+  const TvEpisodeDetails({
     required this.tvShowId,
     required this.seasonNo,
     required this.episodeNo,
@@ -88,25 +90,6 @@ class TvEpisodeDetailsRequest extends BaseDetailsRequest {
   List<Object?> get props => [tvShowId, seasonNo, episodeNo];
 }
 
-/// {@template book_id_type}
-/// Book ID Type.
-///
-/// Can be a [googleBooks] or an [isbn] ID type.
-/// {@endtemplate}
-enum BookIdType {
-  /// Google Books ID
-  googleBooks('google_books'),
-
-  /// ISBN
-  isbn('isbn');
-
-  /// {@macro book_id_type}
-  const BookIdType(this.queryParam);
-
-  /// String representation of this query parameter.
-  final String queryParam;
-}
-
 /// {@template book_details_request}
 /// Book Details request.
 ///
@@ -114,9 +97,9 @@ enum BookIdType {
 ///
 /// [idType] defaults to [BookIdType.googleBooks].
 /// {@endtemplate}
-class BookDetailsRequest extends BaseDetailsRequest {
+class BookDetails extends BaseDetailsData {
   /// {@macro book_details_request}
-  const BookDetailsRequest({
+  const BookDetails({
     required this.bookId,
     this.idType = BookIdType.googleBooks,
   });
@@ -140,34 +123,15 @@ class BookDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [gameId].
 /// {@endtemplate}
-class GameDetailsRequest extends BaseDetailsRequest {
+class GameDetails extends BaseDetailsData {
   /// {@macro game_details_request}
-  const GameDetailsRequest({required this.gameId});
+  const GameDetails({required this.gameId});
 
   /// Game ID
   final String gameId;
 
   @override
   List<Object?> get props => [gameId];
-}
-
-/// {@template podcast_id_type}
-/// Podcast ID Type.
-///
-/// Can be a [podcastIndex] or an [iTunes] ID type.
-/// {@endtemplate}
-enum PodcastIdType {
-  /// Podcast Index ID.
-  podcastIndex('podcast_index'),
-
-  /// iTunes ID.
-  iTunes('itunes');
-
-  /// {@macro podcast_id_type}
-  const PodcastIdType(this.queryParam);
-
-  /// String representation of this query parameter.
-  final String queryParam;
 }
 
 /// {@template podcast_show_details_request}
@@ -177,9 +141,9 @@ enum PodcastIdType {
 ///
 /// [idType] defaults to [PodcastIdType.podcastIndex].
 /// {@endtemplate}
-class PodcastShowDetailsRequest extends BaseDetailsRequest {
+class PodcastShowDetails extends BaseDetailsData {
   /// {@macro podcast_show_details_request}
-  const PodcastShowDetailsRequest({
+  const PodcastShowDetails({
     required this.podcastId,
     this.idType = PodcastIdType.podcastIndex,
   });
@@ -193,7 +157,7 @@ class PodcastShowDetailsRequest extends BaseDetailsRequest {
   final PodcastIdType idType;
 
   @override
-  List<Object?> get props => [podcastId, idType];
+  List<Object?> get props => [podcastId];
 }
 
 /// {@template podcast_episode_details_request}
@@ -203,9 +167,9 @@ class PodcastShowDetailsRequest extends BaseDetailsRequest {
 ///
 /// [idType] defaults to [PodcastIdType.podcastIndex].
 /// {@endtemplate}
-class PodcastEpisodeDetailsRequest extends BaseDetailsRequest {
+class PodcastEpisodeDetails extends BaseDetailsData {
   /// {@macro podcast_episode_details_request}
-  const PodcastEpisodeDetailsRequest({
+  const PodcastEpisodeDetails({
     required this.podcastId,
     required this.episodeId,
     this.idType = PodcastIdType.podcastIndex,
