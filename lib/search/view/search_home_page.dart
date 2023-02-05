@@ -37,7 +37,7 @@ class SearchHomePage extends StatelessWidget {
                 query: 'hello',
                 filter: {SearchFilter.movie},
               ),
-              child: const Text('Search Movie'),
+              child: const Text('Search Movie with query "Hello"'),
             ),
           ],
         ),

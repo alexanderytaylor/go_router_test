@@ -17,6 +17,8 @@ enum MediaType {
 
 // TODO? add redirect directly in constructors if parameters are non existent or empty.
 
+// TODO: add country code optional parameter to keep
+
 class DetailsPage extends StatelessWidget {
   const DetailsPage._({
     super.key,
@@ -139,13 +141,25 @@ class DetailsPage extends StatelessWidget {
   }
 
   /// Method for pushing to this route within the app.
-  static void go(BuildContext context) => context.goNamed(DetailsPage.name);
+  static void go(BuildContext context, DetailsRequestBase detailsRequest) =>
+      context.goNamed(DetailsPage.name);
+
+  // HOW:
+  //
+  // base location knows media type and media type specific details.
+  //
+  // options:
+  //
+  // - pass Overview type, based on that return the correct DetailsRequest, but coupled features then...
+  // - each Overview has DetailsRequest inside them ready to pass, same as before, coupled features.
+  // -
+  //  -
 
   static const path = '/details';
   static const name = 'details';
 
   final MediaType mediaType;
-  final BaseDetailsRequest request;
+  final DetailsRequestBase request;
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +188,10 @@ class DetailsView extends StatelessWidget {
                 mediaType: state.mediaType,
                 item: state.details,
               ),
+            ),
+            OutlinedButton(
+              onPressed: () => GoRouter.of(context).pop(),
+              child: const Text('Go Back'),
             ),
           ],
         ),
@@ -248,7 +266,8 @@ class DetailsItem extends StatelessWidget {
         ..add(
           OutlinedButton(
             onPressed: () => context.go('/details/podcast/1234'),
-            child: const Text('Go to next detals apge'),
+            child: const Text(
+                'Test nested details pages (go back from this page to get back here)'),
           ),
         ),
     );

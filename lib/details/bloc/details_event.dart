@@ -11,7 +11,7 @@ class DetailsRequested extends DetailsEvent {
   const DetailsRequested({required this.mediaType, required this.request});
 
   final MediaType mediaType;
-  final BaseDetailsRequest request;
+  final DetailsRequestBase request;
 
   @override
   List<Object> get props => [mediaType, request];

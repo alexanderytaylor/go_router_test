@@ -20,8 +20,11 @@ class LibraryPage extends StatelessWidget {
           const Text('Library Page'),
           const SizedBox(height: 20),
           OutlinedButton(
-            onPressed: () => DetailsPage.go(context),
-            child: const Text('Details Page'),
+            onPressed: () => DetailsPage.go(
+              context,
+              const MovieDetailsRequest(movieId: '1234'),
+            ),
+            child: const Text('Get movie details for id: 1234'),
           ),
         ],
       ),

@@ -73,8 +73,14 @@ class SearchFormView extends StatelessWidget {
               const SizedBox(height: 5),
               Text('filter: ${state.filter}'),
               OutlinedButton(
-                onPressed: () => DetailsPage.go(context),
-                child: const Text('Details'),
+                onPressed: () => DetailsPage.go(
+                    context,
+                    TvEpisodeDetailsRequest(
+                        tvShowId: '1234', seasonNo: 2, episodeNo: 4)),
+                child: const Text(
+                  'Get details for Tv Episode with tvShowId: 1234, seasonNo: 2, epsiodeNo: 4',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ],
           );

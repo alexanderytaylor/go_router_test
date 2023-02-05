@@ -3,9 +3,9 @@ import 'package:equatable/equatable.dart';
 /// {@template details_request}
 /// Base Details Request.
 /// {@endtemplate}
-abstract class BaseDetailsRequest extends Equatable {
+abstract class DetailsRequestBase extends Equatable {
   /// {@macro details_request}
-  const BaseDetailsRequest();
+  const DetailsRequestBase();
 }
 
 /// {@template movie_details_request}
@@ -13,7 +13,7 @@ abstract class BaseDetailsRequest extends Equatable {
 ///
 /// Contains a [movieId].
 /// {@endtemplate}
-class MovieDetailsRequest extends BaseDetailsRequest {
+class MovieDetailsRequest extends DetailsRequestBase {
   /// {@macro movie_details_request}
   const MovieDetailsRequest({required this.movieId});
 
@@ -29,7 +29,7 @@ class MovieDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [tvShowId].
 /// {@endtemplate}
-class TvShowDetailsRequest extends BaseDetailsRequest {
+class TvShowDetailsRequest extends DetailsRequestBase {
   /// {@macro tv_show_details_request}
   const TvShowDetailsRequest({required this.tvShowId});
 
@@ -45,7 +45,7 @@ class TvShowDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [tvShowId] and [seasonNo].
 /// {@endtemplate}
-class TvSeasonDetailsRequest extends BaseDetailsRequest {
+class TvSeasonDetailsRequest extends DetailsRequestBase {
   /// {@macro tv_season_details_request}
   const TvSeasonDetailsRequest({
     required this.tvShowId,
@@ -67,7 +67,7 @@ class TvSeasonDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [tvShowId], [seasonNo] and [episodeNo].
 /// {@endtemplate}
-class TvEpisodeDetailsRequest extends BaseDetailsRequest {
+class TvEpisodeDetailsRequest extends DetailsRequestBase {
   /// {@macro tv_episode_details_request}
   const TvEpisodeDetailsRequest({
     required this.tvShowId,
@@ -114,7 +114,7 @@ enum BookIdType {
 ///
 /// [idType] defaults to [BookIdType.googleBooks].
 /// {@endtemplate}
-class BookDetailsRequest extends BaseDetailsRequest {
+class BookDetailsRequest extends DetailsRequestBase {
   /// {@macro book_details_request}
   const BookDetailsRequest({
     required this.bookId,
@@ -140,7 +140,7 @@ class BookDetailsRequest extends BaseDetailsRequest {
 ///
 /// Contains a [gameId].
 /// {@endtemplate}
-class GameDetailsRequest extends BaseDetailsRequest {
+class GameDetailsRequest extends DetailsRequestBase {
   /// {@macro game_details_request}
   const GameDetailsRequest({required this.gameId});
 
@@ -177,7 +177,7 @@ enum PodcastIdType {
 ///
 /// [idType] defaults to [PodcastIdType.podcastIndex].
 /// {@endtemplate}
-class PodcastShowDetailsRequest extends BaseDetailsRequest {
+class PodcastShowDetailsRequest extends DetailsRequestBase {
   /// {@macro podcast_show_details_request}
   const PodcastShowDetailsRequest({
     required this.podcastId,
@@ -203,7 +203,7 @@ class PodcastShowDetailsRequest extends BaseDetailsRequest {
 ///
 /// [idType] defaults to [PodcastIdType.podcastIndex].
 /// {@endtemplate}
-class PodcastEpisodeDetailsRequest extends BaseDetailsRequest {
+class PodcastEpisodeDetailsRequest extends DetailsRequestBase {
   /// {@macro podcast_episode_details_request}
   const PodcastEpisodeDetailsRequest({
     required this.podcastId,
