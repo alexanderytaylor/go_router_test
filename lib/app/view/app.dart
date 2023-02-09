@@ -34,6 +34,7 @@ class _AppViewState extends State<AppView> {
 
   @override
   Widget build(BuildContext context) {
+    debugInvertOversizedImages = true;
     return MaterialApp.router(
       theme: ThemeData(
         appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),

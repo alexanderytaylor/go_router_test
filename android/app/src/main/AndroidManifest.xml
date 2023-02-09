@@ -2,6 +2,7 @@
     package="com.example.verygoodcore.go_router_test">
    <application
         android:label="${appName}"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
