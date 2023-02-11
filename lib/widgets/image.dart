@@ -65,6 +65,7 @@ class AppImage extends StatefulWidget {
   /// {@macro app_image}
   const AppImage({
     required this.path,
+    this.optimize = true,
     this.borderRadius,
     this.clipBehavior,
     this.aspectRatio,
@@ -93,7 +94,6 @@ class AppImage extends StatefulWidget {
     this.filterQuality = FilterQuality.low,
     this.isAntiAlias = false,
     this.headers,
-    // todo: make sure this overrides the inside ones when its set
     this.cacheWidth,
     this.cacheHeight,
     super.key,
@@ -107,8 +107,13 @@ class AppImage extends StatefulWidget {
   // TODO(@alexanderytaylor): add factory constructors for creating specific AppImages with predefined placeholders. for exampel movie, book, tv etc.
   // TODO(@alexanderytaylor): probably need to create some sort of extension method to accomplish the above.
 
+  // todo: Add bool optimize
+
   /// Image path URL
   final String path;
+
+  /// Whether the images displayed size should be optimized.
+  final bool optimize;
 
   /// The border radius of the rounded corners.
   ///
@@ -284,6 +289,7 @@ class _AppImageState extends State<AppImage> {
   }
 
   void _calcImageSize() {
+    if (!widget.optimize) return;
     if (widget.placeholderWidget == null) {
       _getAssetImageSize();
     }

@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_test/details/detials.dart';
-import 'package:go_router_test/widgets/image.dart';
+import 'package:go_router_test/widgets/app_image.dart';
+import 'package:go_router_test/widgets/image_fade.dart';
 
 const imageUrls = [
   'https://www.themoviedb.org/t/p/original/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg',
@@ -32,49 +34,40 @@ class LibraryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: AppImage(
-          path: imageUrls.first,
-          aspectRatio: 2 / 3,
-          showLoadingProgressIndicator: true,
-        ),
-      ),
-    );
-
     return SizedBox(
       // height: 300,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(child: const ImageTester()),
-          // Expanded(child: const ImageTester()),
-          // Expanded(child: const ImageTester()),
-          // Expanded(child: const ImageTester()),
-        ],
-      ),
-    );
+        children: const [
+          Expanded(child: ImageTester()),
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('Library Page'),
-          const SizedBox(height: 20),
-          OutlinedButton(
-            onPressed: () => DetailsPage.go(
-              context,
-              const MovieDetailsRequest(movieId: '1234'),
-            ),
-            child: const Text('Get movie details for id: 1234'),
-          ),
+          // Expanded(child: const ImageTester()),
+          // Expanded(child: const ImageTester()),
+          // Expanded(child: const ImageTester()),
         ],
       ),
     );
   }
 }
+//   return Center(
+//     child: Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         const Text('Library Page'),
+//         const SizedBox(height: 20),
+//         OutlinedButton(
+//           onPressed: () => DetailsPage.go(
+//             context,
+//             const MovieDetailsRequest(movieId: '1234'),
+//           ),
+//           child: const Text('Get movie details for id: 1234'),
+//         ),
+//       ],
+//     ),
+//   );
+// }
+// }
 
 class ImageTester extends StatelessWidget {
   const ImageTester({super.key});
@@ -89,10 +82,17 @@ class ImageTester extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: SizedBox(
             width: 100,
+            // child: ImageFade(
+            //   image:
+            //       CachedNetworkImageProvider(imageUrls[index], maxWidth: 100),
+            //   duration: Duration(milliseconds: 300),
+            //   syncDuration: Duration.zero,
+            // ),
             child: AppImage(
-              path: imageUrls[index],
+              src: imageUrls[index],
               aspectRatio: 2 / 3,
-              // showLoadingProgressIndicator: true,
+              shouldOptimize: true,
+              // maxWidth: 100,
             ),
           ),
         );
